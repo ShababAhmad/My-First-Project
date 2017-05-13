@@ -1,0 +1,146 @@
+body
+{
+  background-color: #F4F4F4;
+  font-size: 18px;
+}
+
+.asterisk{
+  font-size: 30px;
+  position: absolute;
+  right: 30px;
+  top: 8px;
+  color: #D20707;
+}
+
+
+/* Login Start  */
+.login{
+  color: #888;
+}
+
+.login {
+  width: 300px;
+  margin: 100px auto;
+}
+.login input
+{
+  margin-bottom: 10px;
+}
+.login .form-control
+{
+  background-color: #E5E5E5;
+}
+
+
+
+/*End  */
+/*Start Nav  */
+.navbar{
+  border-radius: 0;
+  margin-bottom: 0;
+}
+.navbar-brand{
+  font-size: 16px;
+}
+
+/*End Nav */
+.home-stats .stat a
+{
+  color:#FFF;
+}
+.home-stats .stat a:hover
+{
+  text-decoration: none;
+}
+.form-control{
+    position: relative;
+}
+/*Dashboard*/
+.home-stats .stat {
+
+  border-radius:10px; 
+  padding: 20px;
+  font-size: 15px;
+ 
+}
+.home-stats .stat span {
+  display: block;
+  font-size: 50px;
+}
+.home-stats .st-pending
+{
+  background-color: #c0392b;
+}
+.home-stats .st-total
+{
+  background-color: #d35400;
+}
+.home-stats .st-members
+{
+  background-color: #3498db;
+}
+.latest
+{
+  margin-top: 30px;
+}
+.latest-user
+{
+  margin-bottom: 0px;
+}
+
+.latest-user li
+{
+  padding:10px ;
+  overflow: hidden;
+}
+
+.latest-user li:nth-child(odd)
+{
+ background-color:#EEE;
+}
+
+.latest-user .btn-success,
+.latest-user .btn-Info
+{
+  padding:2px 8px;
+}
+.latest-user .btn-Info
+{
+  margin-right:5px;
+}
+
+/*   Dashborad End   */
+.categories .cat{
+  padding: 15px;
+  position: relative;
+}
+.categories .cat .hidden-buttons{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+//.b{
+  position: absolute;
+  top: 100px;
+  right: 100px;
+}
+
+
+/*END Dashboard*/
+/* Member page st */
+h1{
+  font-size: 55px;
+  margin: 40px 0;
+  font-weight: bold;
+  color: #666;
+}
+.show-pass{
+  position: absolute;
+  top: 6px;
+  right: -30px;
+}
+.table tr:first-child td {
+    background-color: #333;
+    color: #fff;
+}
+/* Member page end */
