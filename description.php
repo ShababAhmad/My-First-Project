@@ -1,18 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
+ 
+	<meta charset="utf-8">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/mdb.min.css">
     <link rel="stylesheet" href="font-awesome/css/font-awesome.css">
- <style type="text/css">
-        h1
-        {
-            text-align: center;
+
+
+        
+
+    
+
+    
+    <style type="text/css">
+    	h1
+    	{
+    		text-align: center;
             text-decoration: underline;
             background-color: #CCCCFF;
+    	}
+      #hdr
+        {
+            margin-top: -25px;
         }
-      
         #link_login
         {
             
@@ -27,17 +38,13 @@
             height: 5em;
             width: 7em;
         }
-        #show
-        {
-        	margin-left: 600px;
-        }
     </style>
 </head>
 
 <body class="hidden-sn blue-skin">
 
 <!--Double navigation-->
-<header>
+<header id="hdr">
 
     <!-- Sidebar navigation -->
     <ul id="slide-out" class="side-nav custom-scrollbar">
@@ -45,6 +52,7 @@
         <!-- Logo -->
         <li>
             <div class="logo-wrapper waves-light">
+
                <p> E-Store</p> 
             </div>
         </li>
@@ -62,16 +70,15 @@
      
         <!--/.Search Form-->
 
-         <!-- Side navigation links -->
+        <!-- Side navigation links -->
         <li>
              <ul class="collapsible collapsible-accordion">
               <li><a href="index.php" class="waves-effect">Home</a>
-                </li>
+                            </li>
                 <li><a href="" class="waves-effect" data-toggle="modal" data-target="#modal-contact"><span class="hidden-sm-down">Contact Form</span></a>
                             
                             </li>
-              
-           
+                        
                 <li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-envelope-o"></i> Category<i class="fa fa-angle-down rotate-icon"></i></a>
                     <div class="collapsible-body">
                         <ul>
@@ -89,6 +96,7 @@
             </ul>
         </li>
         <!--/. Side navigation links -->
+
     </ul>
     <!--/. Sidebar navigation -->
 
@@ -114,16 +122,15 @@
 
             <li class="nav-item " !-->
                 <a href="log.php" class="nav-link"><i class="fa fa-envelope"></i> <span class="hidden-sm-down">Login</span></a>
+
+
+                
+                </button>
+
             </li>
             
         </ul --!>
-          <form name="form" id="form_search">
 
-         
-            <input type="text" id="Serach-box" value="" name="sear" placeholder="Serach Product" />
-            
-        </form>
-        
     </nav>
     <!--/.Navbar-->
 
@@ -131,7 +138,7 @@
 <!--/Double navigation-->
 
 <!--Main layout-->
-<main style="margin-top: -50px;">
+<main style="margin-top: -25px;">
     <div class="container-fluid">
 
         
@@ -143,14 +150,12 @@
     
     <?php
        session_start();
-   
     if(isset($_SESSION['name1']) ==true)
     {   
     ?> 
 <form method="post" action="index.php">
 
     <button id="singlebutton" name="logout" class="btn btn-primary">Logout</button>
-    
     <?php
     
          if(isset($_REQUEST["logout"]))
@@ -174,12 +179,7 @@
 <!--Shopping Cart table-->
 <div class="table-responsive">
 <header>
-    <h1>Product Listing</h1>
-    <div id="show">
-        <a id="link" href="#">
-            
-        </a></div>
-    
+	<h1>Product Listing</h1>
 </header>
     <table class="table product-table">
         <!--Table head-->
@@ -188,20 +188,26 @@
    
     include("/config/database.php");
     $records = array();
-     try
-    {
-        $con=new PDO($sn,$username);
-        //echo "<td>connected</td>";
-        $con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_WARNING);
-    }
-    catch(PDOEXCEPTION $ex)
-    {
-        echo "Error ->".$ex->getMessage();
-    }
     
-            $statement=$con->prepare("select *from product ");
-                $statement->execute();
-                $records = $statement->fetchAll(PDO::FETCH_BOTH); 
+
+            error_reporting(0);
+    if (!isset($_GET['id']))
+    {
+       header("location:index.php?error=1");
+    }
+    $id=$_GET['id'];
+    include("/config/database.php");
+    $st=$con->prepare("select *from product where id = $id");
+    $st->bindParam("id",$id);
+    
+   
+    $result=$st->execute();
+     $st->execute();
+     $records = $st->fetchAll(PDO::FETCH_BOTH); 
+
+   
+    
+
 ?>
         <thead>
             <tr>
@@ -226,14 +232,13 @@
             <tr>
                  <td>
                     
-                    
-               <div id="carousel-example-1" class="carousel slide carousel-fade" data-ride="carousel">
+                    <div id="carousel-example-1" class="carousel slide carousel-fade" data-ride="carousel">
     <!--Indicators-->
     <ol class="carousel-indicators">
         <li data-target="#carousel-example-1" data-slide-to="0" class="active"></li>
-        <li data-target="#carousel-example-1" data-slide-to="1"></li>
-        <li data-target="#carousel-example-1" data-slide-to="2"></li>
-        <li data-target="#carousel-example-1" data-slide-to="3"></li>
+        <li data-target="#carousel-example-1" data-slide-to="1" ></li>
+        <li data-target="#carousel-example-1" data-slide-to="2" ></li>
+        <li data-target="#carousel-example-1" data-slide-to="3" ></li>
     </ol>
     <!--/.Indicators-->
 
@@ -261,8 +266,8 @@
         <!--/Thi
         <!--/Third slide-->
     </div>
-    <!--/.Slides
-    
+    <!--/.Slides-->
+
     <!--Controls-->
     <a class="left carousel-control" href="#carousel-example-1" role="button" data-slide="prev">
         <span class="icon-prev" aria-hidden="true"></span>
@@ -275,32 +280,21 @@
     <!--/.Controls-->
 </div>
 <!--/.Carousel Wrapper-->
+                  
+
+
                 </td>
                 <td>
                     <h5><strong><?php echo $record['pname']; ?></strong></h5>
                     <p class="text-muted"> </p>
                 </td>
                 
+                <td><?php echo $record['oname']; ?></td>
                 <td>
-
-                    <?php echo $record['oname']; ?>
-                    
+                   <?php echo $record['price']; ?>
                 </td>
-
-                <td>
-                     <?php echo $record['price']; ?>
-                </td>
-
-                <td>
-                     <?php echo $record['description']; ?>
-                 </td>
-               
-                <td>
-                    <a href="description.php?id=<?php echo $record['id'] ?>" class="btn btn-primary">Description</a>
-                </td>
-             
-                
-            <td>
+                <td><?php echo $record['description']; ?></td>
+                    <td>
                     <div>
                         <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
 
@@ -321,15 +315,17 @@
                           <!-- Display the payment button. -->
                           <input type="image" name="submit" border="0"
                           src="paypal.png"
-                          alt="Buy Now" height="70px" width="100px">
+                          alt="Buy Now" height="110px" width="120px">
                           <img alt="" border="0" width="1" height="1"
                           src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" >
-                            
-                            
 
 </form>
                     </div>
                 </td>
+                <td>
+                    <a href="index.php" class="btn btn-primary">Back to Home</a>
+                </td>
+
                
             </tr>
             <!--/First row-->
@@ -357,6 +353,7 @@
 <!--/Shopping Cart table-->
 
 
+                                
 <!-- Modal Contact -->
 <div class="modal fade modal-ext" id="modal-contact" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -431,6 +428,8 @@
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="js/mdb.min.js"></script>
     <script  src="font/font.js"></script>
+
+    
     <script type="text/javascript">
     
     
@@ -441,15 +440,9 @@ $(".button-collapse").sideNav();
 var el = document.querySelector('.custom-scrollbar');
 Ps.initialize(el);
 
-//search box
-$(".button-collapse").sideNav();
-
-// Custom scrollbar init
-var el = document.querySelector('.custom-scrollbar');
-Ps.initialize(el);
 
 //modal
-$('#myModal').modal()
+$('#myModal').modal(options)
 $('#myModal').modal({
   keyboard: false
 })
@@ -460,53 +453,6 @@ $('#myModal').modal('hide')
 $('#myModal').on('hidden.bs.modal', function (e) {
   // do something...
 })
-
-$(document).ready(function(){
-        $("#form_search").keyup(function(){
-
-            var a=$(this).serialize();
-            if(a!='')
-            {
-
-
-                $.ajax({
-
-
-                    url:"searchproduct.php",
-                    type:"post",
-                    data:{sear:a},
-                    data:a,
-                    success:function(data)
-                    {
-                        
-                        $("#show").html('<a id="id" href="index.php">'+data+'</a>');
-                       // $("#g").attr('href','p.php');
-
-
-                    }
-                    ,error:function()
-                    {
-                        
-                    }
-
-
-
-                });
-
-            }
-            else
-            {
-
-
-                $("#show").html('');
-
-            }
-        });
-
-
-    });
-
-
 </script>
 
 
@@ -542,4 +488,5 @@ $(document).ready(function(){
 
 </footer>
 <!--/.Footer-->
+
 </html>

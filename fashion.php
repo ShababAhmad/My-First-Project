@@ -29,7 +29,7 @@
         }
         #show
         {
-        	margin-left: 600px;
+            margin-left: 600px;
         }
     </style>
 </head>
@@ -199,7 +199,7 @@
         echo "Error ->".$ex->getMessage();
     }
     
-            $statement=$con->prepare("select *from product ");
+            $statement=$con->prepare("select *from product where category='fashion' ");
                 $statement->execute();
                 $records = $statement->fetchAll(PDO::FETCH_BOTH); 
 ?>
@@ -324,8 +324,6 @@
                           alt="Buy Now" height="70px" width="100px">
                           <img alt="" border="0" width="1" height="1"
                           src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" >
-                            
-                            
 
 </form>
                     </div>
@@ -479,7 +477,7 @@ $(document).ready(function(){
                     success:function(data)
                     {
                         
-                        $("#show").html('<a id="id" href="index.php">'+data+'</a>');
+                        $("#show").html('<a id="id" href="index.php?name='+data['pname']+'">'+data+'</a>');
                        // $("#g").attr('href','p.php');
 
 

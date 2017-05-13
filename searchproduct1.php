@@ -1,18 +1,59 @@
-<!DOCTYPE html>
+ <?php
+       session_start();
+    if(isset($_SESSION['name1']) ==true)
+    {   
+    ?> 
+<form method="post" action="index.php">
+
+    <button id="singlebutton" name="logout" class="btn btn-primary">Logout</button>
+    <?php
+    
+         if(isset($_REQUEST["logout"]))
+        {   
+            echo "hello";
+            //session_unset();
+            session_destroy();
+            header("location:log.php");
+        }
+    ?>
+   
+</form>
+<?php
+    }
+
+     ?> 
+<!doctype html>
 <html>
 <head>
-    <meta charset="utf-8">
+<meta charset="utf-8">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/mdb.min.css">
     <link rel="stylesheet" href="font-awesome/css/font-awesome.css">
- <style type="text/css">
-        h1
+  <style type="text/css">
+      #Serach-box
+      {
+
+        height: 120px;
+        width: 400px;
+        margin-left: 30px;
+      }
+      h2
+      {
+
+        font-size: 2em;
+        text-align: center;
+        text-decoration: underline;
+      }
+      h1
         {
             text-align: center;
             text-decoration: underline;
             background-color: #CCCCFF;
         }
-      
+      #hdr
+        {
+            margin-top: -25px;
+        }
         #link_login
         {
             
@@ -27,17 +68,17 @@
             height: 5em;
             width: 7em;
         }
-        #show
-        {
-        	margin-left: 600px;
-        }
-    </style>
-</head>
+#label1
+{
+    width: 100px;
+}
 
-<body class="hidden-sn blue-skin">
+  </style>
+</head>
+    <body class="hidden-sn blue-skin">
 
 <!--Double navigation-->
-<header>
+<header id="hdr">
 
     <!-- Sidebar navigation -->
     <ul id="slide-out" class="side-nav custom-scrollbar">
@@ -45,6 +86,7 @@
         <!-- Logo -->
         <li>
             <div class="logo-wrapper waves-light">
+
                <p> E-Store</p> 
             </div>
         </li>
@@ -62,16 +104,17 @@
      
         <!--/.Search Form-->
 
-         <!-- Side navigation links -->
+        <!-- Side navigation links -->
         <li>
              <ul class="collapsible collapsible-accordion">
               <li><a href="index.php" class="waves-effect">Home</a>
-                </li>
+                            </li>
                 <li><a href="" class="waves-effect" data-toggle="modal" data-target="#modal-contact"><span class="hidden-sm-down">Contact Form</span></a>
                             
                             </li>
-              
-           
+                    <li><a href="searchproduct1.php" class="waves-effect" >Search</a>
+                            
+                            </li>      
                 <li><a class="collapsible-header waves-effect arrow-r"><i class="fa fa-envelope-o"></i> Category<i class="fa fa-angle-down rotate-icon"></i></a>
                     <div class="collapsible-body">
                         <ul>
@@ -89,6 +132,7 @@
             </ul>
         </li>
         <!--/. Side navigation links -->
+
     </ul>
     <!--/. Sidebar navigation -->
 
@@ -114,16 +158,15 @@
 
             <li class="nav-item " !-->
                 <a href="log.php" class="nav-link"><i class="fa fa-envelope"></i> <span class="hidden-sm-down">Login</span></a>
+
+
+                
+                </button>
+
             </li>
             
         </ul --!>
-          <form name="form" id="form_search">
 
-         
-            <input type="text" id="Serach-box" value="" name="sear" placeholder="Serach Product" />
-            
-        </form>
-        
     </nav>
     <!--/.Navbar-->
 
@@ -131,7 +174,7 @@
 <!--/Double navigation-->
 
 <!--Main layout-->
-<main style="margin-top: -50px;">
+<main style="margin-top: -25px;">
     <div class="container-fluid">
 
         
@@ -141,223 +184,23 @@
 <!--/Main layout-->
 <header id="a1" >
     
-    <?php
-       session_start();
    
-    if(isset($_SESSION['name1']) ==true)
-    {   
-    ?> 
-<form method="post" action="index.php">
-
-    <button id="singlebutton" name="logout" class="btn btn-primary">Logout</button>
-    
-    <?php
-    
-         if(isset($_REQUEST["logout"]))
-        {   
-            echo "hello";
-            //session_unset();
-            session_destroy();
-            header("location:log.php");
-        }
-    ?>
-   
-</form>
-<?php
-    }
-
-     ?> 
   
 </header>
 
+        <h2>Search Product</h2>
+          <form name="form" id="form_search">
 
-<!--Shopping Cart table-->
-<div class="table-responsive">
-<header>
-    <h1>Product Listing</h1>
-    <div id="show">
+         
+            <input type="text" id="Serach-box" value="" name="sear" placeholder="Serach Product" />
+            
+        </form>
+        <div id="show">
         <a id="link" href="#">
             
         </a></div>
-    
-</header>
-    <table class="table product-table">
-        <!--Table head-->
-<?php
-    
-   
-    include("/config/database.php");
-    $records = array();
-     try
-    {
-        $con=new PDO($sn,$username);
-        //echo "<td>connected</td>";
-        $con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_WARNING);
-    }
-    catch(PDOEXCEPTION $ex)
-    {
-        echo "Error ->".$ex->getMessage();
-    }
-    
-            $statement=$con->prepare("select *from product ");
-                $statement->execute();
-                $records = $statement->fetchAll(PDO::FETCH_BOTH); 
-?>
-        <thead>
-            <tr>
-                 <th>Image</th>
-                <th>Product</th>
-                <th>Owner</th>
-                
-                <th>Price</th>
-                
-                <th>Description</th>
-               
-            </tr>
-        </thead>
-        <!--/Table head-->
 
-        <!--Table body-->
-        <tbody>
-        <?php foreach ($records as $record) {
-            
-        ?>
-            <!--First row-->
-            <tr>
-                 <td>
-                    
-                    
-               <div id="carousel-example-1" class="carousel slide carousel-fade" data-ride="carousel">
-    <!--Indicators-->
-    <ol class="carousel-indicators">
-        <li data-target="#carousel-example-1" data-slide-to="0" class="active"></li>
-        <li data-target="#carousel-example-1" data-slide-to="1"></li>
-        <li data-target="#carousel-example-1" data-slide-to="2"></li>
-        <li data-target="#carousel-example-1" data-slide-to="3"></li>
-    </ol>
-    <!--/.Indicators-->
-
-    <!--Slides-->
-    <div class="carousel-inner" role="listbox">
-        <!--First slide-->
-        <div class="carousel-item active">
-            <img src="<?php echo $record['path'];?>" style="height:200px;width:200px;" alt="First slide">
-        </div>
-        <!--/First slide-->
-
-        <!--Second slide-->
-        <div class="carousel-item">
-            <img src="<?php echo $record['path2'];?>" style="height:200px;width:200px;" alt="Second slide">
-        </div>
-        <!--/Second slide-->
-
-        <!--Third slide-->
-        <div class="carousel-item">
-            <img src="<?php echo $record['path3'];?>" style="height:200px;width:200px;" alt="Third slide">
-        </div>
-         <div class="carousel-item">
-            <img src="<?php echo $record['path4'];?>" style="height:200px;width:200px;" alt="Third slide">
-        </div>
-        <!--/Thi
-        <!--/Third slide-->
-    </div>
-    <!--/.Slides
-    
-    <!--Controls-->
-    <a class="left carousel-control" href="#carousel-example-1" role="button" data-slide="prev">
-        <span class="icon-prev" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#carousel-example-1" role="button" data-slide="next">
-        <span class="icon-next" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
-    <!--/.Controls-->
-</div>
-<!--/.Carousel Wrapper-->
-                </td>
-                <td>
-                    <h5><strong><?php echo $record['pname']; ?></strong></h5>
-                    <p class="text-muted"> </p>
-                </td>
-                
-                <td>
-
-                    <?php echo $record['oname']; ?>
-                    
-                </td>
-
-                <td>
-                     <?php echo $record['price']; ?>
-                </td>
-
-                <td>
-                     <?php echo $record['description']; ?>
-                 </td>
-               
-                <td>
-                    <a href="description.php?id=<?php echo $record['id'] ?>" class="btn btn-primary">Description</a>
-                </td>
-             
-                
-            <td>
-                    <div>
-                        <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
-
-  <!-- Identify your business so that you can collect the payments. -->
-                          <input type="hidden" name="business" value="shababbusi12@estore.com">
-
-                          <!-- Specify a Buy Now button. -->
-                          <input type="hidden" name="cmd" value="_xclick">
-
-                          <!-- Specify details about the item that buyers will purchase. -->
-                          <input type="hidden" name="item_name" value="<?php echo $record['oname']; ?>">
-                          <input type="hidden" name="amount" value="<?php echo $record['price']; ?>">
-                          <input type="hidden" name="currency_code" value="USD">
-
-                          <input type="hidden" name="return" value="http://localhost/Project/Project/success.php">
-                          <input type="hidden" name="return_cancel" value="http://localhost/Project/Project/cancel.php">
-
-                          <!-- Display the payment button. -->
-                          <input type="image" name="submit" border="0"
-                          src="paypal.png"
-                          alt="Buy Now" height="70px" width="100px">
-                          <img alt="" border="0" width="1" height="1"
-                          src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" >
-                            
-                            
-
-</form>
-                    </div>
-                </td>
-               
-            </tr>
-            <!--/First row-->
-
-            <!--Second row-->
-          
-        <?php 
-            }
-        ?>
-            <!--/Third row-->
-
-            <!--Fourth row-->
-            <tr>
-                <td colspan="10"></td>
-               
-                
-            </tr>
-            <!--/Fourth row-->
-
-        </tbody>
-        <!--/Table body-->
-    </table>
-   
-</div>
-<!--/Shopping Cart table-->
-
-
-<!-- Modal Contact -->
+        <!-- Modal Contact -->
 <div class="modal fade modal-ext" id="modal-contact" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <!--Content-->
@@ -413,8 +256,7 @@
         <!--/.Content-->
     </div>
 </div>
-
-</body>
+    </body>
 <!-- SCRIPTS -->
 
     <!-- JQuery -->
@@ -431,17 +273,9 @@
     <!-- MDB core JavaScript -->
     <script type="text/javascript" src="js/mdb.min.js"></script>
     <script  src="font/font.js"></script>
+
+    
     <script type="text/javascript">
-    
-    
-// SideNav init
-$(".button-collapse").sideNav();
-
-// Custom scrollbar init
-var el = document.querySelector('.custom-scrollbar');
-Ps.initialize(el);
-
-//search box
 $(".button-collapse").sideNav();
 
 // Custom scrollbar init
@@ -507,7 +341,9 @@ $(document).ready(function(){
     });
 
 
-</script>
+
+
+    </script>
 
 
 <!--Footer-->
